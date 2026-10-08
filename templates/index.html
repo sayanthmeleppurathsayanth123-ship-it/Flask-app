@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #1e1e2f, #12121a);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: #1f1f2e;
+            padding: 40px;
+            border-radius: 16px;
+            width: 350px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        h2 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #aaa;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .input-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 12px 10px;
+            background: transparent;
+            border: 1px solid #444;
+            border-radius: 8px;
+            outline: none;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .input-box label {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            color: #888;
+            font-size: 13px;
+            transform: translateY(-50%);
+            pointer-events: none;
+            transition: 0.3s ease;
+        }
+
+        .input-box input:focus + label,
+        .input-box input:valid + label {
+            top: -8px;
+            left: 8px;
+            font-size: 11px;
+            background: #1f1f2e;
+            padding: 0 5px;
+            color: #6c63ff;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #6c63ff;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #5a52e0;
+        }
+
+        .error {
+            color: #ff4d4d;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        .switch {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #aaa;
+        }
+
+        .switch a {
+            color: #6c63ff;
+            text-decoration: none;
+        }
+
+        .switch a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
+<body>
+
+    <div class="card">
+        <h2>Welcome Back 👋</h2>
+        <p class="subtitle">Login to your account</p>
+
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <form action="{{ url_for('index') }}" method="post">
+
+            <div class="input-box">
+                <input type="text" name="username" required>
+                <label>Username</label>
+            </div>
+
+            <div class="input-box">
+                <input type="password" name="password" required>
+                <label>Password</label>
+            </div>
+
+            <div style="text-align:right; margin-bottom:15;">
+                <a href="{{ url_for('forgot_password') }}"
+                   style="color: #6c63ff; font-size: 13px;">
+                Forgot Password?
+              </a>
+            </div>
+
+            <div class="g-recaptcha"
+                data-sitekey="{{ RECAPTCHA_SITE_KEY }}"
+                style="margin-bottom: 15px;">
+            </div>
+
+            <button type="submit">Login</button>
+            
+        </form>
+
+        <p class="switch">
+            Don’t have an account?
+            <a href="{{url_for('register')}}">Create one</a>
+        </p>
+    </div>
+
+</body>
+
+</html>
